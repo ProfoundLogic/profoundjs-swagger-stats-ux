@@ -180,11 +180,11 @@ export default {
       this.dbdata.setWData('w10', { value: 0, trend: [] });
       this.dbdata.setWData('w11', { value: 0, trend: [] });
       this.dbdata.setWData('w12', { value: 0, trend: [] });
-      this.dbdata.setWData('w14', { data: [] });
-      this.dbdata.setWData('w15', { data: [] });
-      this.dbdata.setWData('w16', { data: [] });
-      this.dbdata.setWData('w17', { data: [] });
-      this.dbdata.setWData('w18', { data: [] });
+      this.dbdata.setWData('w14', { data: [[new Date(), 0]] });
+      this.dbdata.setWData('w15', { data: [[new Date(), 0, 0]] });
+      this.dbdata.setWData('w16', { data: [[new Date(), 0, 0, 0, 0]] });
+      this.dbdata.setWData('w17', { data: [[new Date(), 0]] });
+      this.dbdata.setWData('w18', { data: [[new Date(), 0]] });
     },
 
     updateStats: function() {

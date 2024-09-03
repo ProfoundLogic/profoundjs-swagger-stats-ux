@@ -164,7 +164,7 @@ export default {
     }),
     initialize: function() {
       this.dbspec.colorScheme = this.dashboardColorScheme;
-      this.dbdata.setWData('w1', { data: [] });
+      this.dbdata.setWData('w1', { data: [[new Date(), 0, 0]] });
 
       this.dbdata.setWData('wR', { value: 0, trend: [] });
       this.dbdata.setWData('wE', { value: 0, trend: [] });
