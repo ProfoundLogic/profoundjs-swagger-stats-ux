@@ -10,7 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     refreshTrigger: 0,
-    refreshTimeout: 5000,
+    refreshTimeout: 60000,
     refreshLast: 0,
     intervalId: null,
     rotateTrigger: 0,

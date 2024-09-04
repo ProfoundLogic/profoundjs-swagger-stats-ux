@@ -35,6 +35,13 @@ class Utils {
     });
     return data;
   }
+
+  // replace zeros with nulls to avoid getting NaN in DbChartjsBar charts
+  replaceZerosWithNulls(dataArray) {
+    return dataArray.map(x => {
+      return x === 0 ? null : x;
+    });
+  }
 }
 
 const utils = new Utils();
