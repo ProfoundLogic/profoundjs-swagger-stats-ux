@@ -3,7 +3,7 @@
     <q-toolbar style="margin: 4px 4px 4px 0px;">
       <q-icon class="text-primary" name="settings_ethernet" size="sm" />
       <q-toolbar-title> {{ apiOpMethod }} {{ apiOpPath }} </q-toolbar-title>
-      <q-select
+      <!--<q-select
         :dark="dark"
         class="col-4"
         filled
@@ -24,8 +24,9 @@
             </q-item-section>
           </q-item>
         </template>
-      </q-select>
+      </q-select>-->
     </q-toolbar>
+    <div :id="plCodeId"></div>
     <db-dashboard v-if="ready" :dbspec="dbspec" :dbdata="dbdata" :dark="dark"> </db-dashboard>
   </q-page>
 </template>
@@ -43,6 +44,7 @@ export default {
   mixins: [swsdashboard],
   data() {
     return {
+      plCodeId: 'plAddedCodeId',
       timer: null,
       apiOpMethod: null,
       apiOpPath: null,
@@ -207,6 +209,16 @@ export default {
       this.getStats({ fields: ['apidefs'] });
     }
     this.ready = true;
+
+    // PJS-1009: Replicate the functionality we had in the previous version of the dashboard
+    if (!window.parent.showSwaggerStatsRoute) {
+      var that = this;
+      window.parent.showSwaggerStatsRoute = function (apiOpMethod, apiOpPath) {
+        that.apiOpMethod = apiOpMethod;
+        that.apiOpPath = apiOpPath;
+        that.getStats({ fields: ['apiop'], method: that.apiOpMethod, path: that.apiOpPath });
+      };
+    }
   },
   methods: {
     ...mapActions({

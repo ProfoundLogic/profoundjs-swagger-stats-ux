@@ -16,6 +16,7 @@ import statsContainer from '@/store/statscontainer';
 import { mapState, mapActions } from 'vuex';
 import { swsdashboard } from '../mixins/swsdashboard';
 import { vgtMethods } from '../mixins/vgtmethods';
+import utils from '@/utils.js';
 
 export default {
   name: 'ApiView',
@@ -200,19 +201,20 @@ export default {
       this.dbdata.touch('w24');
 
       this.dbdata['w25'].data.labels = allMethods;
-      this.dbdata['w25'].data.datasets[0].data = allMethods.map(x => statsContainer.method[x].apdex_score);
+
+      this.dbdata['w25'].data.datasets[0].data = utils.replaceZerosWithNulls(allMethods.map(x => statsContainer.method[x].apdex_score));
       this.dbdata.touch('w25');
 
       this.dbdata['w26'].data.labels = allMethods;
-      this.dbdata['w26'].data.datasets[0].data = allMethods.map(x => statsContainer.method[x].req_rate);
+      this.dbdata['w26'].data.datasets[0].data = utils.replaceZerosWithNulls(allMethods.map(x => statsContainer.method[x].req_rate));
       this.dbdata.touch('w26');
 
       this.dbdata['w27'].data.labels = allMethods;
-      this.dbdata['w27'].data.datasets[0].data = allMethods.map(x => statsContainer.method[x].err_rate);
+      this.dbdata['w27'].data.datasets[0].data = utils.replaceZerosWithNulls(allMethods.map(x => statsContainer.method[x].err_rate));
       this.dbdata.touch('w27');
 
       this.dbdata['w28'].data.labels = allMethods;
-      this.dbdata['w28'].data.datasets[0].data = allMethods.map(x => statsContainer.method[x].avg_time);
+      this.dbdata['w28'].data.datasets[0].data = utils.replaceZerosWithNulls(allMethods.map(x => statsContainer.method[x].avg_time));
       this.dbdata.touch('w28');
     }
   }

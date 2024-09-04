@@ -2,11 +2,13 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store/store';
 import api from '@/store/api';
-import DefaultLayout from './layouts/Default.vue';
+import DefaultLayout from './layouts/DefaultPL.vue';
+import DefaultLayoutSingle from './layouts/DefaultPLSingle.vue';
 import Summary from './views/summary.vue';
 import Rates from './views/rates.vue';
 import Api from './views/api.vue';
 import ApiOp from './views/apiop.vue';
+import ApiOpSingle from './views/apiopsingle.vue';
 import ApiResponses from './views/apiresponses.vue';
 import Requests from './views/requests.vue';
 import Errors from './views/errors.vue';
@@ -79,6 +81,17 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/apiopsingle',
+      component: DefaultLayoutSingle,
+      children: [
+        {
+          path: '',
+          name: 'apiopsingle',
+          component: ApiOpSingle
+        }
+      ]
     }
   ]
 });
