@@ -3,7 +3,7 @@ import ApiOp from '@/store/apiop';
 const baseURL = '.';
 
 const swaggerStatsAPI = {
-  getStats({ fields = null, method = null, path = null, username = null, password = null }) {
+  getStats({ fields = null, method = null, path = null, username = null, password = null, swssingle = null, headers = null }) {
     let params = {};
     if (fields) {
       params.fields = fields;
@@ -13,6 +13,9 @@ const swaggerStatsAPI = {
     }
     if (path) {
       params.path = path;
+    }
+    if (swssingle) {
+      params.swssingle = swssingle;
     }
     let opts = {
       method: 'get',
@@ -25,6 +28,10 @@ const swaggerStatsAPI = {
         password: password
       };
     }
+    if (headers) {
+      opts.headers = headers;
+    }
+
     return new ApiOp(opts).execute();
   },
 

@@ -180,7 +180,7 @@ export default {
     refreshTrigger: {
       handler: function() {
         // TODO Enable
-        this.getStats({ fields: ['apiop'], method: this.apiOpMethod, path: this.apiOpPath });
+        this.getStats({ fields: ['apiop'], method: this.apiOpMethod, path: this.apiOpPath, swssingle: true });
       }
     },
     statsUpdated: {
@@ -194,7 +194,7 @@ export default {
           let parts = val.split(' ');
           this.apiOpMethod = parts[0];
           this.apiOpPath = parts[1];
-          this.getStats({ fields: ['apiop'], method: this.apiOpMethod, path: this.apiOpPath });
+          this.getStats({ fields: ['apiop'], method: this.apiOpMethod, path: this.apiOpPath, swssingle: true });
         }
       }
     }
@@ -204,9 +204,9 @@ export default {
     this.apiOpPath = this.$route.query.path || null;
     this.initialize();
     if (this.apiOpMethod && this.apiOpPath) {
-      this.getStats({ fields: ['apiop', 'apidefs'], method: this.apiOpMethod, path: this.apiOpPath });
+      this.getStats({ fields: ['apiop', 'apidefs'], method: this.apiOpMethod, path: this.apiOpPath, swssingle: true });
     } else {
-      this.getStats({ fields: ['apidefs'] });
+      this.getStats({ fields: ['apidefs'], swssingle: true });
     }
     this.ready = true;
 
@@ -216,7 +216,7 @@ export default {
       window.parent.showSwaggerStatsRoute = function (apiOpMethod, apiOpPath) {
         that.apiOpMethod = apiOpMethod;
         that.apiOpPath = apiOpPath;
-        that.getStats({ fields: ['apiop'], method: that.apiOpMethod, path: that.apiOpPath });
+        that.getStats({ fields: ['apiop'], method: that.apiOpMethod, path: that.apiOpPath, swssingle: true });
       };
     }
   },
@@ -268,7 +268,7 @@ export default {
       }
 
       if (needStatsReload) {
-        this.getStats({ fields: ['apiop'], method: this.apiOpMethod, path: this.apiOpPath });
+        this.getStats({ fields: ['apiop'], method: this.apiOpMethod, path: this.apiOpPath, swssingle: true });
         return;
       }
 

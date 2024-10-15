@@ -2,6 +2,7 @@ import api from '@/store/api';
 import router from '@/router';
 import statsContainer from '@/store/statscontainer';
 import { Notify } from 'quasar';
+import store from './store';
 
 // TODO consider placeholders
 const state = {
@@ -22,10 +23,19 @@ const mutations = {
 };
 
 const actions = {
-  async getStats({ commit }, { fields = null, method = null, path = null, username = null, password = null }) {
+  async getStats({ commit }, { fields = null, method = null, path = null, username = null, password = null, swssingle = null }) {
     let stats = null;
-    let getStatsRes = await api.getStats({ fields: fields, method: method, path: path, username: username, password: password });
+    let headers = null;
+    if (store.state.sessionId) {
+      headers = {
+        'sws-session-id': store.state.sessionId,
+      };
+    }
+    let getStatsRes = await api.getStats({ fields: fields, method: method, path: path, username: username, password: password, swssingle: swssingle, headers: headers });
     if (getStatsRes.success) {
+      if (getStatsRes.headers && 'sws-session-id' in getStatsRes.headers && getStatsRes.headers['sws-session-id']) {
+        store.commit('SET_SESSION_ID', { sessionId: getStatsRes.headers['sws-session-id'] });
+      }
       stats = getStatsRes.payload;
       commit('SET_STATS', { stats: stats });
     } else {

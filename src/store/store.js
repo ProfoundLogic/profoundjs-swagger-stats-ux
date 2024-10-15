@@ -30,6 +30,9 @@ export default new Vuex.Store({
       state.authenticated = authenticated;
       state.loggedin = loggedin;
     },
+    SET_SESSION_ID(state, { sessionId }) {
+      state.sessionId = sessionId;
+    },
     SET_INTERVAL_ID(state, { id }) {
       state.intervalId = id;
     },
@@ -82,6 +85,7 @@ export default new Vuex.Store({
     async logout({ commit }) {
       let logoutResult = await api.logout();
       commit('SET_AUTH', { authenticated: false, loggedin: false });
+      commit('SET_SESSION_ID', { sessionId: false });
       return logoutResult;
     }
   }

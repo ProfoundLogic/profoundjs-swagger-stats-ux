@@ -5,18 +5,18 @@ const webpack = require('webpack');
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
     ? './'
-    : '/wsapi/api-stats/ux',
+    : '/swagger-stats/ux',
   productionSourceMap: false,
   devServer: {
     proxy: {
-      '/wsapi/api-stats/ux/stats': {
-        target: 'http://localhost:8109/wsapi/api-stats/stats',
+      '/swagger-stats/ux/stats': {
+        target: 'http://localhost:3040/swagger-stats/stats',
         // This enables keepalive via proxy
         // See https://github.com/http-party/node-http-proxy/issues/767
         agent: http.globalAgent
       },
-      '/wsapi/api-stats/ux/logout': {
-        target: 'http://localhost:8109/wsapi/api-stats/logout',
+      '/swagger-stats/ux/logout': {
+        target: 'http://localhost:3040/swagger-stats/logout',
         agent: http.globalAgent
       }
     }

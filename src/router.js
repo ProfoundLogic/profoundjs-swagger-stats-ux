@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store/store';
 import api from '@/store/api';
-import DefaultLayout from './layouts/DefaultPL.vue';
+import DefaultLayout from './layouts/Default.vue';
 import DefaultLayoutSingle from './layouts/DefaultPLSingle.vue';
 import Summary from './views/summary.vue';
 import Rates from './views/rates.vue';
@@ -102,15 +102,23 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
 
+  if (to.name === 'apiopsingle') {
+    next();
+    return;
+  }
   let authResult = await api.authenticate();
   if (!authResult.success) {
     store.commit('SET_AUTH', { authenticated: false });
+    store.commit('SET_SESSION_ID', { sessionId: false });
     next('/login');
     return;
   }
   let loggedin = false;
   if (authResult.headers && 'x-sws-authenticated' in authResult.headers && authResult.headers['x-sws-authenticated']) {
     loggedin = true;
+  }
+  if (authResult.headers && 'sws-session-id' in authResult.headers && authResult.headers['sws-session-id']) {
+    store.commit('SET_SESSION_ID', { sessionId: authResult.headers['sws-session-id'] });
   }
   store.commit('SET_AUTH', { authenticated: true, loggedin: loggedin });
   next();
